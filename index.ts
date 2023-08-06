@@ -24,9 +24,6 @@ connection.authenticate()
     console.log(error)
 })
 
-
-
-
 app.use('/', categoriesController)
 app.use('/', articlesController)
 
