@@ -6,14 +6,6 @@
                 <h2>Categories</h2>
                 <a href="/admin/categories/new" class="btn btn-success mb-3">Create new category</a>
                 <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Title</th>
-                            <th>Slug</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
                     <tbody>
                         <% categories.forEach(category=> { %>
                             <tr>
@@ -27,7 +19,7 @@
                                     <%= category.slug %>
                                 </th>
                                 <th>
-                                    <button class="btn btn-warning">Edit</button>
+                                    <a href="/admin/categories/edit/<%= category.id %>" class="btn btn-warning">Edit</a>
                                     <form action="/categories/delete" method="post" style="display: inline;" onsubmit="confirmDelete(event, this)">
                                         <input type="hidden" name="id" value="<%= category.id %>">
                                         <button class="btn btn-danger">Delete</button>
