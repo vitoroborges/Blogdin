@@ -19,6 +19,7 @@ const Article = connection.define('article', {
 
 
 // relation Article - Category
+Category.hasMany(Article)
 Article.belongsTo(Category)
 
 export = Article

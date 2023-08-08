@@ -1,5 +1,18 @@
 <%- include('partials/header'); %>
-<body>
-    <H1>Olá</H1>
-</body>
-<%- include('partials/footer'); %>
+
+    <body>
+        <%- include('partials/home-navbar'); %>
+            <div class="container">
+                <% articles.forEach(article=> { %>
+                        <div class="card mt-3">
+                            <div class="card-header">
+                                <h2><%= article.title %></h2>
+                            </div>
+                            <div class="card-body">
+                                <a href="" class="btn btn-success">Read</a>
+                            </div>
+                        </div>
+                    <% }) %>
+            </div>
+    </body>
+    <%- include('partials/footer'); %>
