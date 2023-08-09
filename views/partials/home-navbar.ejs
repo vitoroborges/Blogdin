@@ -1,10 +1,19 @@
-
 <nav class="navbar navbar-light bg-secondary navbar-expand-lg">
     <a href="/" class="navbar-brand ms-3">Blogdin</a>
 
-    <ul class="navbar-nav me-auto"> 
+    <ul class="navbar-nav me-auto">
         <li class="nav-item">
-            <a class="nav-link" href="/">Home</a>
+            <a class="nav-link" href="/">
+                Home
+            </a>
         </li>
+        <% categories.forEach(category=> { %>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/categories/<%= category.slug %>">
+                    <%= category.title %>
+                </a>
+            </li>
+            <% }) %>
     </ul>
 </nav>

@@ -1,18 +1,18 @@
-import { DataType } from "sequelize-typescript";
+import sequelize from 'sequelize';
 import connection from '../database/data'
 import Category from "../categories/categorie";
 
-const Article = connection.define('article', {
+const Article = connection.define('articles', {
     title: {
-        type: DataType.STRING,
+        type: sequelize.STRING,
         allowNull: false
     },
     slug: {
-        type: DataType.STRING,
+        type: sequelize.STRING,
         allowNull: false
     },
     body: {
-        type: DataType.TEXT,
+        type: sequelize.TEXT,
         allowNull: false
     }
 })

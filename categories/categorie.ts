@@ -1,13 +1,13 @@
-import {DataType} from "sequelize-typescript";
+ import sequelize from 'sequelize'
 import connection from '../database/data'
 
 const Category = connection.define('categories',{
     title: {
-        type: DataType.STRING,
+        type: sequelize.STRING,
         allowNull: false
     },
     slug: {
-        type: DataType.STRING,
+        type: sequelize.STRING,
         allowNull: false
     }
 })

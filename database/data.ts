@@ -1,4 +1,4 @@
-import {Sequelize} from 'sequelize-typescript'
+import {Sequelize } from "sequelize"
 
 const connection = new Sequelize('blogdin', 'root', 'C.oxinha4321', {
     host: "localhost",
