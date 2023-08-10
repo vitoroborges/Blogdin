@@ -1,5 +1,5 @@
- import sequelize from 'sequelize'
-import connection from '../database/data'
+const sequelize = require('sequelize')
+const connection = require('../database/data')
 
 const Category = connection.define('categories',{
     title: {
@@ -12,4 +12,4 @@ const Category = connection.define('categories',{
     }
 })
 
-export = Category
+module.exports = Category

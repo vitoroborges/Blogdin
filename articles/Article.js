@@ -1,6 +1,6 @@
-import sequelize from 'sequelize';
-import connection from '../database/data'
-import Category from "../categories/categorie";
+const sequelize = require('sequelize');
+const connection = require('../database/data')
+const Category = require("../categories/categorie");
 
 const Article = connection.define('articles', {
     title: {
@@ -22,4 +22,4 @@ const Article = connection.define('articles', {
 Category.hasMany(Article)
 Article.belongsTo(Category)
 
-export = Article
+module.exports = Article

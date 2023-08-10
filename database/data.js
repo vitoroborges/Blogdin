@@ -1,4 +1,4 @@
-import {Sequelize } from "sequelize"
+const Sequelize = require("sequelize")
 
 const connection = new Sequelize('blogdin', 'root', 'C.oxinha4321', {
     host: "localhost",
@@ -6,4 +6,4 @@ const connection = new Sequelize('blogdin', 'root', 'C.oxinha4321', {
     timezone: "-03:00"
 })
 
-export default connection
+module.exports = connection

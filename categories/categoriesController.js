@@ -1,8 +1,8 @@
-import { Router } from "express";
-import Category from "./categorie";
-import slugify from "slugify";
+const express = require("express");
+const Category = require("./categorie");
+const slugify = require("slugify");
 
-const router = Router()
+const router = express.Router()
 
 router.get('/admin/categories/new', (req, res) => {
     res.render('admin/categories/new')
@@ -53,7 +53,7 @@ router.post('/categories/delete', (req, res) => {
 
 router.get('/admin/categories/edit/:id', (req, res) => {
     let id = req.params.id
-    if (isNaN(id as any)) {
+    if (isNaN(id)) {
         res.redirect('/admin/categories')
     }
     Category.findByPk(id).then(category => {
@@ -74,7 +74,7 @@ router.post("/categories/update", (req, res) => {
     Category.update({
         title: title, slug: slugify(title)
     }, {
-        where:{
+        where: {
             id: id
         }
     }).then(() => {
@@ -82,4 +82,4 @@ router.post("/categories/update", (req, res) => {
     })
 })
 
-export default router
+module.exports = router

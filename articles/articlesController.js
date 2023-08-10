@@ -1,15 +1,15 @@
-import { Router } from "express";
-import Category from "../categories/categorie";
-import Article from "./Article";
-import slugify from "slugify";
+const express = require("express");
+const Category = require("../categories/categorie");
+const Article = require("./Article.js");
+const slugify = require("slugify");
 
-const router = Router()
+const router = express.Router()
 
 router.get('/admin/articles', (req, res) => {
     Article.findAll({
-        include: [{model: Category}]
+        include: [{ model: Category }]
     }).then(articles => {
-        res.render('admin/articles/index', {articles: articles})
+        res.render('admin/articles/index', { articles: articles })
     })
 })
 
@@ -55,4 +55,4 @@ router.post('/articles/delete', (req, res) => {
     }
 })
 
-export default router
+module.exports = router

@@ -1,11 +1,11 @@
-import express, { Express, Request, Response } from 'express';
-import connection from './database/data'
+const express = require('express')
+const connection = require('./database/data')
 
-import categoriesController from './categories/categoriesController'
-import articlesController from './articles/articlesController'
+const categoriesController = require('./categories/categoriesController')
+const articlesController = require('./articles/articlesController')
 
-import Article from './articles/Article';
-import Category from './categories/categorie';
+const Article = require('./articles/Article.js');
+const Category = require('./categories/categorie');
 
 const app = express()
 
@@ -64,7 +64,7 @@ app.get('/category/:slug', (req, res) => {
         where: {
             slug: slug
         },
-        include: [{ model: Article}]
+        include: [{ model: Article }]
     }).then(category => {
         if (category != undefined) {
             Category.findAll().then(categories => {
