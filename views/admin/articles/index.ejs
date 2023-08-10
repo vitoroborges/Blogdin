@@ -31,7 +31,7 @@
                                     <%= article.category.title %>
                                 </td>
                                 <td>
-                                    <form action="/categories/delete" method="post" style="display: inline;"
+                                    <form action="/articles/delete" method="post" style="display: inline;"
                                         onsubmit="confirmDelete(event, this)">
                                         <input type="hidden" name="id" value="<%= article.id %>">
                                         <button class="btn btn-danger">Delete</button>

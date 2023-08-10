@@ -1,0 +1,68 @@
+<%- include("../../partials/header"); %>
+
+    <body>
+        <%- include("../../partials/navbar"); %>
+            <div class="container">
+                <div class="card mt-3">
+                    <div class="card-header">
+                        <h2>Edit Article</h2>
+                    </div>
+                    <div class="card-body">
+                        <form action="/articles/update" method="post">
+                            <input type="hidden" name="id" value="<%= article.id %>">
+                            <input value="<%= article.title %>" type="text" name="title" class="form-control mb-3"
+                                placeholder="Insert a title">
+                            <textarea name="body" placeholder="Write your article here!" class="form-control"
+                                id="article"></textarea>
+                            <label for="">Category</label>
+                            <select name="category" class="form-control mb-3">
+                                <% categories.forEach((category)=>{ %>
+                                    <% if(category.id==article.categoryId){ %>
+                                        <option value="<%= category.id %>" selected>
+                                            <%= category.title %>
+                                        </option>
+                                        <% } else{ %>
+                                            <option value="<%= category.id %>">
+                                                <%= category.title %>
+                                            </option>
+                                            <% } %>
+                                                <% }) %>
+                            </select>
+                            <button class="btn btn-success mt-3">Save</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div id="content" style="display: none;">
+                <%- article.body %>
+            </div>
+    </body>
+
+    <%- include("../../partials/footer"); %>
+
+        <script src="/tinymce/tinymce.min.js"></script>
+        <script>
+            tinymce.init({
+                selector: "#article",
+                activeEditor: true,
+                plugins: [
+                    'advlist',
+                    'autolink',
+                    'link',
+                    'image',
+                    'lists',
+                    'preview',
+                    'searchreplace',
+                    'wordcount',
+                    'fullscreen',
+                    'insertdatetime',
+                    'media',
+                    'save',
+                    'table',
+                    'emoticons',
+                ],
+                init_instance_callback: () => {
+                    tinymce.activeEditor.setContent(document.getElementById('content').innerHTML)
+                }
+            })
+        </script>
