@@ -4,15 +4,24 @@
         <%- include('partials/home-navbar'); %>
             <div class="container">
                 <% articles.forEach(article=> { %>
-                        <div class="card mt-3">
-                            <div class="card-header">
-                                <h2><%= article.title %></h2>
-                            </div>
-                            <div class="card-body">
-                                <a href="/<%= article.slug %>" class="btn btn-success">Read</a>
-                            </div>
+                    <div class="card mt-3">
+                        <div class="card-header">
+                            <h2>
+                                <%= article.title %>
+                            </h2>
                         </div>
+                        <div class="card-body">
+                            <a href="/<%= article.slug %>" class="btn btn-success">Read</a>
+                        </div>
+                    </div>
                     <% }) %>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col col-12 mt-3">
+                        <a style="float: right;" href="/articles/page/2">Next Page</a>
+                    </div>
+                </div>
             </div>
     </body>
     <%- include('partials/footer'); %>
