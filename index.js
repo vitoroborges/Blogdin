@@ -3,9 +3,12 @@ const connection = require('./database/data')
 
 const categoriesController = require('./categories/categoriesController')
 const articlesController = require('./articles/articlesController')
+const usersController = require('./user/usersControler')
 
 const Article = require('./articles/Article.js');
 const Category = require('./categories/categorie');
+const User = require('./user/User')
+
 
 const app = express()
 
@@ -26,6 +29,7 @@ connection.authenticate()
 
 app.use('/', categoriesController)
 app.use('/', articlesController)
+app.use('/', usersController)
 
 app.get('/', (req, res) => {
     Article.findAll({
