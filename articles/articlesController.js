@@ -26,7 +26,7 @@ router.post('/articles/save', (req, res) => {
 
     Article.create({
         title: title,
-        slug: slugify(title),
+        slug: slugify(title, {lowercase: true}),
         body: body,
         categoryId: category
     }).then(() => {
@@ -76,7 +76,7 @@ router.post("/articles/update", (req, res) => {
     let body = req.body.body
     let category = req.body.category
 
-    Article.update({ title: title, body: body, categoryId: category, slug: slugify(title) }, {
+    Article.update({ title: title, body: body, categoryId: category, slug: slugify(title, {lowercase: true}) }, {
         where: {
             id: id
         }
@@ -96,12 +96,15 @@ router.get('/articles/page/:num', (req, res) => {
     if (isNaN(page) || page == 1) {
         offset = 0
     } else {
-        offset = parseInt(page) * 4;
+        offset = (parseInt(page ) - 1) * 4;
     }
 
     Article.findAndCountAll({
         limit: 4,
-        offset: offset
+        offset: offset,
+        order: [
+            ['id', 'DESC']
+        ] 
     }).then(articles => {
 
         let next;
@@ -114,7 +117,8 @@ router.get('/articles/page/:num', (req, res) => {
 
         let result = {
             next: next,
-            articles: articles
+            articles: articles,
+            page: parseInt(page)
         }
 
         Category.findAll().then(categories => {
