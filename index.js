@@ -1,5 +1,6 @@
 const express = require('express')
 const connection = require('./database/data')
+const session = require('express-session')
 
 const categoriesController = require('./categories/categoriesController')
 const articlesController = require('./articles/articlesController')
@@ -13,6 +14,12 @@ const User = require('./user/User')
 const app = express()
 
 app.set('view engine', 'ejs')
+
+app.use(session({
+    secret: "salgadodefeira",
+    cookie: {maxAge: 30000000}
+}
+))
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
@@ -35,7 +42,7 @@ app.get('/', (req, res) => {
     Article.findAll({
         order: [
             ['id', 'DESC']
-        ], 
+        ],
         limit: 4
     }).then(articles => {
         Category.findAll().then(categories => {

@@ -2,10 +2,11 @@ const express = require("express");
 const Category = require("../categories/categorie");
 const Article = require("./Article.js");
 const slugify = require("slugify");
+const adminAuth = require('../middlewares/adminAuth')
 
 const router = express.Router()
 
-router.get('/admin/articles', (req, res) => {
+router.get('/admin/articles', adminAuth, (req, res) => {
     Article.findAll({
         include: [{ model: Category }]
     }).then(articles => {
@@ -13,7 +14,7 @@ router.get('/admin/articles', (req, res) => {
     })
 })
 
-router.get('/admin/articles/new', (req, res) => {
+router.get('/admin/articles/new', adminAuth, (req, res) => {
     Category.findAll().then(categories => {
         res.render('admin/articles/new', { categories: categories })
     })
@@ -26,7 +27,7 @@ router.post('/articles/save', (req, res) => {
 
     Article.create({
         title: title,
-        slug: slugify(title, {lowercase: true}),
+        slug: slugify(title, { lowercase: true }),
         body: body,
         categoryId: category
     }).then(() => {
@@ -34,7 +35,7 @@ router.post('/articles/save', (req, res) => {
     })
 })
 
-router.post('/articles/delete', (req, res) => {
+router.post('/articles/delete', adminAuth, (req, res) => {
     let id = req.body.id
     if (id != undefined) {
         if (!isNaN(id)) {
@@ -55,7 +56,7 @@ router.post('/articles/delete', (req, res) => {
     }
 })
 
-router.get('/admin/articles/edit/:id', (req, res) => {
+router.get('/admin/articles/edit/:id', adminAuth, (req, res) => {
     let id = req.params.id
     Article.findByPk(id).then(article => {
         if (article != undefined) {
@@ -70,13 +71,13 @@ router.get('/admin/articles/edit/:id', (req, res) => {
     })
 })
 
-router.post("/articles/update", (req, res) => {
+router.post("/articles/update", adminAuth, (req, res) => {
     let id = req.body.id
     let title = req.body.title
     let body = req.body.body
     let category = req.body.category
 
-    Article.update({ title: title, body: body, categoryId: category, slug: slugify(title, {lowercase: true}) }, {
+    Article.update({ title: title, body: body, categoryId: category, slug: slugify(title, { lowercase: true }) }, {
         where: {
             id: id
         }
@@ -96,7 +97,7 @@ router.get('/articles/page/:num', (req, res) => {
     if (isNaN(page) || page == 1) {
         offset = 0
     } else {
-        offset = (parseInt(page ) - 1) * 4;
+        offset = (parseInt(page) - 1) * 4;
     }
 
     Article.findAndCountAll({
@@ -104,7 +105,7 @@ router.get('/articles/page/:num', (req, res) => {
         offset: offset,
         order: [
             ['id', 'DESC']
-        ] 
+        ]
     }).then(articles => {
 
         let next;
@@ -122,7 +123,7 @@ router.get('/articles/page/:num', (req, res) => {
         }
 
         Category.findAll().then(categories => {
-            res.render('admin/articles/page', {result: result, categories: categories})
+            res.render('admin/articles/page', { result: result, categories: categories })
         })
     })
 })
