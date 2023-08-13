@@ -4,7 +4,9 @@ const bcrypt = require('bcryptjs')
 const router = express.Router()
 
 router.get('/admin/users', (req, res) => {
-
+    User.findAll().then(users => {
+        res.render('admin/users/users', {users: users})
+    })
 })
 
 router.get('/admin/users/create', (req, res) => {
@@ -22,9 +24,9 @@ router.post('/users/create', (req, res) => {
         email: email,
         password: hash
     }).then(() => {
-        res.redirect('/')
+        res.redirect('/admin/users')
     }).catch((err) => {
-        res.redirect('/')
+        res.redirect('/admin/users')
     })
 })
 
